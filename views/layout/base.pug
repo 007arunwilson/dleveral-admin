@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		script.
+			function changeStatus(userId){
+				fetch("/status", {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ userId: userId})
+				}).then(function(response) {
+						console.log("response returned..")
+						document.location.reload();
+					}).then(function(myJson) {
+						console.log("populated data.")
+						populateGraph(myJson);
+				});
+			}
+		include header.pug
+	body.hold-transition.skin-blue.sidebar-mini
+		.wrapper
+			include navigation.pug
+			include sidebar.pug
+			.content-wrapper
+				block content
+			//- include footer.pug
+			include js.pug

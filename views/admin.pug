@@ -1,0 +1,42 @@
+extends layout/base 
+block content 
+	section.content-header 
+		h1 
+			| Hi Admin
+		
+	section.content
+		.box
+			.box-header.with-border
+				h3.box-title
+					b
+						| Users
+				.box-tools.pull-right
+					button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+						i.fa.fa-minus
+					button(type='button', data-widget='remove', data-toggle='tooltip',title='Remove').btn.btn-box-tool
+						i.fa.fa-times
+			.box-body
+				|
+				form(id = "user-list")
+					table(class="table table-striped")
+						thead
+							tr
+								th Name
+								th Email
+								th User Type
+								th Status
+						tbody
+							each user in users
+								tr
+									td=user.name
+									td=user.email
+									td=user.userType
+									td
+										-if (user.isEnabled)
+											button(type='button',class='btn btn-warning',onclick="changeStatus('"+user._id+"')") Disabled
+										-if (!user.isEnabled)
+											button(type='button',class='btn btn-success', onclick="changeStatus('"+user._id+"')") Enabled
+				script.  
+			.box-footer
+				| Footer
+			

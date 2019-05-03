@@ -1,6 +1,9 @@
 extends layout/base 
 block content 
-
+	section.content-header 
+		h1 
+			| #{user.name} Details
+		
 	section.content
 		.box
 			.box-header.with-border
@@ -12,7 +15,7 @@ block content
 			.box-body
 				|
 				form(id = "user-list")
-					table(class="table table-striped")
+					table(class="table")
 						tbody
 							tr
 								td="Name"
@@ -23,3 +26,9 @@ block content
 							tr
 								td="User Type"
 								td=user.userType
+							tr
+								td="User Status"
+								td
+									- var className = (user.isEnabled) ? 'btn btn-warning' : 'btn btn-success';
+									- var buttonName = (user.isEnabled) ? 'Disabled' : 'Enabled';
+									button(type='button',id=user.id,class= className) #{buttonName}

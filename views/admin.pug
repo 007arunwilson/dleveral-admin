@@ -24,7 +24,7 @@ block content
 								th Name
 								th Email
 								th User Type
-								th Status
+								th Action
 						tbody
 							each user in users
 								tr
@@ -32,10 +32,10 @@ block content
 									td=user.email
 									td=user.userType
 									td
-										-if (user.isEnabled)
-											button(type='button',class='btn btn-warning',onclick="changeStatus('"+user._id+"')") Disabled
-										-if (!user.isEnabled)
-											button(type='button',class='btn btn-success', onclick="changeStatus('"+user._id+"')") Enabled
+										- var className = (user.isEnabled) ? 'btn btn-warning' : 'btn btn-success';
+										- var buttonName = (user.isEnabled) ? 'Disabled' : 'Enabled';
+										button(type='button',id=user.id,class= className,onclick="changeStatus('"+user._id+"')") #{buttonName}
+										a(class= "btn btn-primary",href='viewUser/'+user._id) View					
 				script.  
 			.box-footer
 				| Footer

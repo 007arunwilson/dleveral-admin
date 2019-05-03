@@ -34,10 +34,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // for parsing multipart/form-data
 app.use(express.static('public'));
-
 app.post('/', function(req, res){
-   console.log('login data :', req.body);
-   userService.login(req.body,res);
+  console.log('login data :', req.body);
+  userService.login(req.body,res);
 });
 app.post('/status', function(req, res){
    console.log('status update data :', req.body);
@@ -46,13 +45,23 @@ app.post('/status', function(req, res){
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     User.find({ _id: { $ne: currentUser._id } })
     .then((users) => {
-      console.log("users:", users)
-      res.send({ message: "Successfully updated the status" })
+      // console.log("users:", users)
+      res.send({ message: "Successfully updated the status" ,user:result})
     }, (error) => {
       console.log("error", error)
     })
 
    });
+});
+app.get('/viewUser/:userId', function(req, res){
+  console.log('view user data :', req.params);
+  userService.viewUser(req.params.userId)
+  .then((user) => {
+    console.log('success: ', user)
+    res.render("viewUser", { user: user })
+   }, (error) => {
+     console.log("error", error)
+   })
 });
 app.listen(3000,()=>{
     console.log("server running");

@@ -8,7 +8,7 @@ const login = (loginData, res) => {
   User.find({
     email: loginData.username.trim(),
   }).then((result) => {
-    console.log("result:", result)
+    // console.log("result:", result)
     if (result.length == 0) {
       console.log("No such user")
     }
@@ -35,15 +35,15 @@ const changeUserStatus = (req, res) => {
     })
       .lean(true)
       .then((user) => {
-        console.log('User found: ', user);
+        // console.log('User found: ', user);
         var userData = user[0];
-        console.log('propergy : ', userData.hasOwnProperty('isEnabled'))
+        // console.log('propergy : ', userData.hasOwnProperty('isEnabled'))
         if (userData && userData.hasOwnProperty('isEnabled')) {
           userData.isEnabled = !userData.isEnabled;
         } else {
           userData.isEnabled = false;
         }
-        console.log("uerData", userData);
+        // console.log("uerData", userData);
         User.update({ _id: userId },
           userData, function (err, numberAffected, rawResponse) {
             console.log("rawResponse:", rawResponse);
@@ -64,13 +64,32 @@ const getUsersList = (res) => {
   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   User.find({ _id: { $ne: currentUser._id } })
     .then((users) => {
-      console.log("users:", users)
+      // console.log("users:", users)
       res.render("admin", { users: users })
     }, (error) => {
       console.log("error while login", error)
     })
 }
+const viewUser = (userId) => {
+  console.log('view user *****')
+  return new Promise((resolve, reject) => {
+    User.find({ _id: userId })
+      .then((user) => {
+        console.log("user:", user)
+        if (user.length) {
+          resolve(user[0]);
+        }
+        else {
+          reject(null);
+        }
+      }, (error) => {
+        reject(null);
+      })
+  })
+
+}
 module.exports = {
   login,
   changeUserStatus,
+  viewUser
 }

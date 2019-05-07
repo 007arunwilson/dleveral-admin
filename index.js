@@ -34,9 +34,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // for parsing multipart/form-data
 app.use(express.static('public'));
-app.post('/', function(req, res){
+app.post('/admin-view', function(req, res){
   console.log('login data :', req.body);
   userService.login(req.body,res);
+});
+app.post('/users-list', function(req, res){
+  console.log('view users :', req.body);
+  userService.getUsersList(res);
 });
 app.post('/status', function(req, res){
    console.log('status update data :', req.body);

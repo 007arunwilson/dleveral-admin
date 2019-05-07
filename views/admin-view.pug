@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
+    link(rel='stylesheet', href='../stylesheets/style.css')
+  body
+    div.text-center
+        form(class="form-signin" method="POST" action="/users-list")
+            #error
+                if error
+                    p.text-danger Error!!!
+
+            - var h1Classes = ['h3', 'mb-3', 'font-weight-normal']
+            h1(class=h1Classes)  Hi Welcome!!!
+            - var buttonClass=['btn', 'btn-lg', 'btn-login', 'btn-block'];
+            button(class=buttonClass type="submit") view users
+
+            

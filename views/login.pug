@@ -6,7 +6,7 @@ html
     link(rel='stylesheet', href='../stylesheets/style.css')
   body
     div.text-center
-        form(class="form-signin" method="POST" action="/")
+        form(class="form-signin" method="POST" action="/admin-view")
             #error
                 if error
                     p.text-danger Error!!!
@@ -22,7 +22,8 @@ html
             label(for="inputPassword" class="sr-only") Password
             input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required)
             //-signIn button
-            - var buttonClass=['btn', 'btn-lg', 'btn-primary', 'btn-block'];
+            - var buttonClass=['btn', 'btn-lg', 'btn-login', 'btn-block'];
             button(class=buttonClass type="submit") Sign in
+            
 
             

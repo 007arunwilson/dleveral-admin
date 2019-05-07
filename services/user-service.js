@@ -17,7 +17,8 @@ const login = (loginData, res) => {
         if (passwordResult == true) {
           console.log("user found");
           localStorage.setItem('currentUser', JSON.stringify(result[0]));
-          getUsersList(res);
+          // getUsersList(res);
+          res.render('admin-view');
         }
       });
     }
@@ -91,5 +92,6 @@ const viewUser = (userId) => {
 module.exports = {
   login,
   changeUserStatus,
-  viewUser
+  viewUser,
+  getUsersList
 }

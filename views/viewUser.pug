@@ -1,0 +1,34 @@
+extends layout/base 
+block content 
+	section.content-header 
+		h1 
+			| #{user.name} Details
+		
+	section.content
+		.box
+			.box-header.with-border
+				.box-tools.pull-right
+					button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+						i.fa.fa-minus
+					button(type='button', data-widget='remove', data-toggle='tooltip',title='Remove').btn.btn-box-tool
+						i.fa.fa-times
+			.box-body
+				|
+				form(id = "user-list")
+					table(class="table")
+						tbody
+							tr
+								td="Name"
+								td=user.name					
+							tr
+								td="Email"
+								td=user.email
+							tr
+								td="User Type"
+								td=user.userType
+							tr
+								td="User Status"
+								td
+									- var className = (user.isEnabled) ? 'btn btn-warning' : 'btn btn-success';
+									- var buttonName = (user.isEnabled) ? 'Disabled' : 'Enabled';
+									button(type='button',id=user.id,class= className) #{buttonName}

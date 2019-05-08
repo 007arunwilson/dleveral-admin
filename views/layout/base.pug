@@ -1,0 +1,55 @@
+doctype html
+html
+	head
+		script.
+			function changeStatus(userId){
+				fetch("/status", {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ userId: userId})
+				})
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(statusData) {
+					var className = (statusData.user.isEnabled) ? 'btn btn-warning' : 'btn btn-success';
+					var buttonName = (statusData.user.isEnabled) ? 'Disabled' : 'Enabled';
+					var actionButton = document.getElementById(userId);
+					actionButton.setAttribute("class", className);
+					actionButton.innerHTML =  buttonName;
+				});
+			}
+			function viewUser(userId){
+				fetch("/viewUser/"+userId, {
+					method: 'GET',
+					//- headers: {
+					//- 	'Accept': 'application/json',
+					//- 	'Content-Type': 'application/json'
+					//- },
+					//- body: JSON.stringify({ userId: userId})
+				})
+				.then(function(response) {
+					console.log('View user',response);
+					var res=document.createElement('div');
+					res.setAttribute('id',"res");
+					res.innerHTML=response;
+				})
+			}
+			
+
+		include header.pug
+	body.hold-transition.skin-blue.sidebar-mini
+		.wrapper
+			include navigation.pug
+			include sidebar.pug
+			.content-wrapper
+				block content
+			//- include footer.pug
+			include js.pug
+			script.
+				$('.user-table').DataTable({
+					  "pageLength": 5
+				});
